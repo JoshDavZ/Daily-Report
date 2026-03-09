@@ -1,7 +1,7 @@
 
 
 body {
-    background-image: url("../img/telkom-indonesia.jpg");
+    background-image: url("/img/telkom-indonesia.jpg");
     background-size: cover;
     background-color: rgba(255,255,255,0.6);
     background-blend-mode: lighten;
@@ -77,4 +77,5 @@ warpper{
 .crop-container img{
   position: absolute;
 }
+
 
