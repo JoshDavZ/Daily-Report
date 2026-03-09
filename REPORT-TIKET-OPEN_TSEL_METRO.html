@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>REPORT TIKET OPEN_TSEL_METRO</title>
+		<link rel="stylesheet" href="style/StyleTable.css">
+		<link rel="stylesheet" href="style/StyleMain.css">
+		<link rel="stylesheet" href="style/StyleFloatBox.css">
+		<script>
+			function getMonthName() {
+				const date = new Date();
+				const months = [
+					'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+					'Juli', 'Agustus', 'September', 'October', 'November', 'Desember'
+				];
+				return months[date.getMonth()];
+			}
+			</script>
+	</head>
+	<body>
+		<div class="crop-container">
+			<img src="Img/LogoTelkom.png" style="right: 0.1rem; height: 30px; top:0px;" alt="Logo">
+			<img src="Img/LogoTelkomAkses.svg" style="right: 3.3rem; top:-35px;height:100px;" alt="Logo">
+			<img src="Img/LogoDanantaraIndonesia.svg" style="right:9.6rem; top:10px; height:18px;" alt="Logo">
+		</div>
+			<warpper style="padding-bottom: 20px; margin-top: 24px;">
+			<h1>REPORT TIKET OPEN_TSEL_METRO</h1>
+			<h1>Periode<script>
+				const today = new Date();
+				const year = today.getFullYear();
+				const month = getMonthName();
+				const day = String(today.getDate()).padStart(2, '0');
+				let hour = today.getHours();
+				if(hour<10) hour = `0${hour}`;
+				let minute = today.getMinutes();
+				if(minute<10) minute = `0${minute}`;
+				document.write(` ${day} ${month} ${year} | Waktu Report ${hour}:${minute} WIB`);
+				</script>
+			</h1>
+		</warpper>
+		<warpper style="padding-bottom: 20px;">
+			<div class = "warpperBox">
+				<div class="card" onclick="ClickBox('PREMIUM PREVENTIVE')">
+					<div class = "Content">
+						<h1>Premium Preventive</h1>
+						<h1 id="PremiumPrevValue">PremiumPrevValue</h1> 
+					</div>
+				</div>
+				<div class="card" onclick="ClickBox('PREMIUM')">
+					<div class = "Content">
+						<h1>Premium</h1>
+						<h1 id="PremiumValue">PremiumPrevValue</h1> 
+					</div>
+				</div>
+				<div class="card" onclick="ClickBox('CRITICAL')">
+					<div class = "Content">
+						<h1>Critical</h1>
+						<h1 id="CriticalValue">PremiumPrevValue</h1> 
+					</div>
+				</div>
+				<div class="card" onclick="ClickBox('MAJOR')">
+					<div class = "Content">
+						<h1>Major</h1>
+						<h1 id="MajorValue">PremiumPrevValue</h1> 
+					</div>
+				</div>
+			</div>
+		</warpper>
+		<warpper style="flex-direction: unset; justify-content: center;">
+			<input class="btn Filebtn" type="file" id="csvInput" accept=".csv"/>
+			<h1>Detail Tiket Berlangsung</h1>
+		</warpper>
+		
+		<div class="wrapper" id="tableData"></div>
+	</div>
+	</body>
+	<script src="script/dataProses.js"></script>
+	<script src="script/dataFilters.js"></script>
+	<script src="script/RenderTable1.js"></script>
+	<script src="script/main.js"></script>
+	<script src="script/Sort.js"></script>
+</html>
