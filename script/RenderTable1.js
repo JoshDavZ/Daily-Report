@@ -90,7 +90,7 @@ function renderTableFromCSV(csvData, tableContainerId, columns = null) {
 					} else {
 						let red = 100-(Math.floor(rowData[header])/(rowData['TARGET']))*100;
 						console.log("persentase merah:",red);
-						td.style.backgroundImage = `linear-gradient(to left, #ffe045, #ff6a00 ${red}%`;
+						td.style.background = '#ffe045';
 						// gradien kuning ke merah
 					}}
 			}else if(header === 'AREA'){
@@ -167,3 +167,4 @@ function renderTableFromCSV(csvData, tableContainerId, columns = null) {
     .catch(err => console.error('could not load CSV', err));
 </script>
 */
+
