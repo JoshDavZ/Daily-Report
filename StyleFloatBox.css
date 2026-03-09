@@ -1,0 +1,51 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+/* body {
+	 place-items: center; 
+	 background: radial-gradient(circle at 50% 30%, #2a2a2a 0%, #131313 64%); 
+	 height: 100vh; 
+	 overflow: hidden; 
+} */
+
+.card {
+	position: relative;
+	background: radial-gradient(circle at 50% 0%, rgb(125, 203, 252) 0%, #56a4f8 64%);
+	/* background-color: rgb(125, 203, 252); */
+	box-shadow: inset 0 1.01rem 0.4rem -1rem #fff0,
+		inset 0 -1.01rem 0.4rem -1rem #0000, 0 -1.02rem 0.4rem -1rem #fff0,
+		0 1rem 0.4rem -1rem #0000, 0 0 0 1px #fff3, 0 4px 4px 0 #0004, 0 0 0 1px #333;
+	width: 15%;
+	height: 4rem;
+    margin: 0px 10px 0px 10px;
+    /* top right bottom left */
+	border-radius: 0.3rem;
+	color: rgb(0, 0, 0);
+    align-items: center;
+    justify-content: center;
+	border-top-style: outset;
+	border-right-style: outset;
+	border: color(from color srgb r g b);
+	/* padding: 1rem; */
+	display: flex;
+	/* flex-direction: column; */
+	/* justify-content: end; */
+	&:hover {
+		translate: 0 -0.2rem;
+	}
+	&:hover::before {
+		--offset: 0.5rem;
+		--ax: 8rem;
+		border-radius: 2.2rem;
+		box-shadow: inset 0 0 0 0.08rem #fff1;
+	}
+    .Content{
+        /* display: block;
+        display: inline;
+        white-space: nowrap; */
+        font-size: 0.7rem;
+        line-height: 1rem;
+    }
+}

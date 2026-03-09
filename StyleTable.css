@@ -1,0 +1,46 @@
+
+
+.wrapper {
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  font-size: 10px;
+  line-height: 15px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  width: center;
+}
+
+.table {
+  margin: 0 0 40px 0;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  display: table;
+  color: black;
+}
+
+.row {
+  display: table-row;
+  background: #f6f6f6e6;
+  font-size: 13px;
+}
+.row:nth-of-type(odd) {
+  background: #e9e9e9e6;
+}
+.row.header {
+  font-weight: 900;
+  color: #000000;
+  background: rgb(125, 203, 252);
+  border: 2px solid black;
+}
+
+/* .cell {
+  padding: 6px 12px;
+  display: table-cell;
+} */
+
+.cell {
+  display: table-cell;
+  vertical-align: middle; /* This is the "table-cell" version of align-items */
+  /* text-align: center;    Horizontal center */
+  padding: 6px 12px;
+}
