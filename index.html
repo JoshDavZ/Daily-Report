@@ -4,10 +4,12 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>REPORT TIKET OPEN_TSEL_METRO</title>
-		<link rel="stylesheet" type="text/css" href="style/StyleTable.css">
-		<link rel="stylesheet" type="text/css" href="style/StyleMain.css">
-		<link rel="stylesheet" type="text/css" href="style/StyleFloatBox.css">
+		<!-- inisialisasi untuk menyambungkan semua style yang dipakai -->
+		<link rel="stylesheet" href="style/StyleTable.css">
+		<link rel="stylesheet" href="style/StyleMain.css">
+		<link rel="stylesheet" href="style/StyleFloatBox.css">
 		<script>
+			// Tamplate Nama bulan
 			function getMonthName() {
 				const date = new Date();
 				const months = [
@@ -19,14 +21,19 @@
 			</script>
 	</head>
 	<body>
+		<!-- menampilkan logo-logo -->
 		<div class="crop-container">
-			<img src="./img/LogoTelkom.png" style="right: 0.1rem; height: 30px; top:0px;" alt="Logo">
-			<img src="./img/LogoTelkomAkses.svg" style="right: 3.3rem; top:-35px;height:100px;" alt="Logo">
-			<img src="./img/LogoDanantaraIndonesia.svg" style="right:9.6rem; top:10px; height:18px;" alt="Logo">
+			<img src="Img/LogoTelkom.png" style="right: 0.1rem; height: 30px; top:0px;" alt="Logo">
+			<img src="Img/LogoTelkomAkses.svg" style="right: 3.3rem; top:-35px;height:100px;" alt="Logo">
+			<img src="Img/LogoDanantaraIndonesia.svg" style="right:9.6rem; top:10px; height:18px;" alt="Logo">
 		</div>
-			<warpper style="padding-bottom: 20px; margin-top: 24px;">
+		<!-- isi utama dari web -->
+		<warpper style="padding-bottom: 10px; margin-top: 24px;">
+			<!-- Report Title -->
 			<h1>REPORT TIKET OPEN_TSEL_METRO</h1>
+			<!-- Report Periode -->
 			<h1>Periode<script>
+				// perhitungan isi tanggal dan waktu
 				const today = new Date();
 				const year = today.getFullYear();
 				const month = getMonthName();
@@ -39,29 +46,34 @@
 				</script>
 			</h1>
 		</warpper>
-		<warpper style="padding-bottom: 20px;">
+		<!-- menampilkan counter severity -->
+		<warpper style="padding-bottom: 10px;">
 			<div class = "warpperBox">
+				<!-- box severity premium perventive -->
 				<div class="card" onclick="ClickBox('PREMIUM PREVENTIVE')">
 					<div class = "Content">
-						<h1>Premium Preventive</h1>
+						<h1 style="font-size: 1.20rem ">PREMIUM PREVENTIVE</h1>
 						<h1 id="PremiumPrevValue">PremiumPrevValue</h1> 
 					</div>
 				</div>
+				<!-- box severity premium -->
 				<div class="card" onclick="ClickBox('PREMIUM')">
 					<div class = "Content">
-						<h1>Premium</h1>
+						<h1>PREMIUM</h1>
 						<h1 id="PremiumValue">PremiumPrevValue</h1> 
 					</div>
 				</div>
+				<!-- box severity critical -->
 				<div class="card" onclick="ClickBox('CRITICAL')">
 					<div class = "Content">
-						<h1>Critical</h1>
+						<h1>CRITICAL</h1>
 						<h1 id="CriticalValue">PremiumPrevValue</h1> 
 					</div>
 				</div>
+				<!-- box severity major -->
 				<div class="card" onclick="ClickBox('MAJOR')">
 					<div class = "Content">
-						<h1>Major</h1>
+						<h1>MAJOR</h1>
 						<h1 id="MajorValue">PremiumPrevValue</h1> 
 					</div>
 				</div>
@@ -71,21 +83,14 @@
 			<input class="btn Filebtn" type="file" id="csvInput" accept=".csv"/>
 			<h1>Detail Tiket Berlangsung</h1>
 		</warpper>
-		
+		<!-- menampilkan tabel -->
 		<div class="wrapper" id="tableData"></div>
 	</div>
 	</body>
+	<!-- inisialisasi untuk menyambungkan logika2 yang dipakai -->
 	<script src="script/dataProses.js"></script>
 	<script src="script/dataFilters.js"></script>
 	<script src="script/RenderTable1.js"></script>
 	<script src="script/main.js"></script>
 	<script src="script/Sort.js"></script>
-
 </html>
-
-
-
-
-
-
-
