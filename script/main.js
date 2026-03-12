@@ -34,9 +34,14 @@ document.getElementById('csvInput').addEventListener('change', function(event) {
             const summary = (row['SUMMARY'] || '').toString();
             row['TOTAL TIKET'] = 1;
             if (summary.includes('PREMIUM')) {
-                if (summary.includes('PREVENTIVE')) row['SEVERITY'] = 'PREMIUM PREVENTIVE';
-                else row['SEVERITY'] = 'PREMIUM';
-                row['TARGET'] = 2;
+                if (summary.includes('PREVENTIVE')) {
+                    row['SEVERITY'] = 'PREMIUM PREVENTIVE';
+                    row['TARGET'] = 24;
+                }
+                else {
+                    row['SEVERITY'] = 'PREMIUM';
+                    row['TARGET'] = 2;
+                }
             } else if (summary.includes('CRITICAL')) {
                 row['SEVERITY'] = 'CRITICAL';
                 row['TARGET'] = 4;
@@ -110,4 +115,5 @@ function ClickBox(clickedBox){
     if (table === null)console.warn("there is no data");
     renderTableFromCSV(table, 'tableData', ['SEVERITY', 'INCIDENT', 'BRANCH', 'WORKZONE','TARGET','DURASI','SUMMARY','TOTAL TIKET']); 
 }
+
 
