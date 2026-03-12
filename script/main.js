@@ -15,7 +15,7 @@ document.getElementById('csvInput').addEventListener('change', function(event) {
         data.forEach(row => {
             const workzone = (row['WORKZONE']||'').toString();
             branch.forEach(index => {
-                let sto = (index['STO']||'').toString();
+                let sto = (index['STO DATABASE']||'').toString();
                 if (workzone.includes(sto)){
                     row['BRANCH'] = index['BRANCH DATABASE'];
                     row['AREA'] = index['AREA DATABASE'];
@@ -110,3 +110,4 @@ function ClickBox(clickedBox){
     if (table === null)console.warn("there is no data");
     renderTableFromCSV(table, 'tableData', ['SEVERITY', 'INCIDENT', 'BRANCH', 'WORKZONE','TARGET','DURASI','SUMMARY','TOTAL TIKET']); 
 }
+
