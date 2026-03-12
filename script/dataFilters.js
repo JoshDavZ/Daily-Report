@@ -55,9 +55,10 @@ function SeverityFilter(csvData, SeverityType = []){
 	console.log(SeverityType);// memastikan severity type yang dimasukkan
 	if (SeverityType.length===0) return csvData;
 	for (let index of SeverityType){
-		table = table.concat(filterByColumn(csvData, 'SEVERITY', index));
+		table = table.concat(filterByColumn(csvData, 'SEVERITY', index, 'exact'));
 	}
 	return table;
 
 	
 }
+
