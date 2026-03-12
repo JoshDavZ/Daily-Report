@@ -78,7 +78,7 @@ function renderTableFromCSV(csvData, tableContainerId, columns = null) {
 			td.style.alignItems = 'center';
 			// jika data berisi angka maka masuk ke dalam if
 			if(!isNaN(rowData[header])){
-				// td.style.textAlign = 'center';
+				td.style.textAlign = 'center';
 				td.style.padding = '0px 0px';
 				// jika data durasi masuk ke dalam if untuk
 				// menentukan warna pada data cell
@@ -166,3 +166,4 @@ function renderTableFromCSV(csvData, tableContainerId, columns = null) {
     .catch(err => console.error('could not load CSV', err));
 </script>
 */
+
