@@ -78,22 +78,18 @@ function renderTableFromCSV(csvData, tableContainerId, columns = null) {
 			td.style.alignItems = 'center';
 			// jika data berisi angka maka masuk ke dalam if
 			if(!isNaN(rowData[header])){
-				td.style.textAlign = "center";
+				// td.style.textAlign = 'center';
+				td.style.padding = '0px 0px';
 				// jika data durasi masuk ke dalam if untuk
 				// menentukan warna pada data cell
 				if(header === 'DURASI'){
-					td.style.fontWeight = 'bold';
-					td.style.borderRadius = '20px';
-					if (rowData[header] > rowData['TARGET']){
-						td.style.color = 'white';
-						td.style.background = '#f51212'; //merah
-					} else {
-						let red = 100-(Math.floor(rowData[header])/(rowData['TARGET']))*100;
-						console.log("persentase merah:",red);
-						td.style.background = '#ffe045';
-						// `linear-gradient(to left, #ffe045, #ff0000 ${red}%`;
-						// gradien kuning ke merah
-					}}
+					setTimeout(() => {
+						td.textContext='';
+						td.className = 'progress-section cell';
+						td.id = 'Bar'+rowData['INCIDENT']; 
+						bars(rowData[header],rowData['TARGET'],'Bar'+rowData['INCIDENT']);
+					}, 100);
+				}
 			}else if(header === 'AREA'){
 				td.style.minWidth = '50px';
 				console.log(header);
@@ -142,7 +138,7 @@ function renderTableFromCSV(csvData, tableContainerId, columns = null) {
 			totalRow.appendChild(td);
 		}
 		totalRow.appendChild(td);
-});
+	});
 	table.appendChild(totalRow);
 	// Append table to container
 	container.appendChild(table);
