@@ -33,28 +33,19 @@ document.getElementById('csvInput').addEventListener('change', function(event) {
         rows.forEach(row => {
             const summary = (row['SUMMARY'] || '').toString();
             row['TOTAL TIKET'] = 1;
-            if (summary.includes('PREMIUM')) {
-                if (summary.includes('PREVENTIVE')) {
-                    row['SEVERITY'] = 'PREMIUM PREVENTIVE';
-                    row['TARGET'] = 24;
-                }
-                else {
-                    row['SEVERITY'] = 'PREMIUM';
-                    row['TARGET'] = 2;
-                }
-            } else if (summary.includes('CRITICAL')) {
-                row['SEVERITY'] = 'CRITICAL';
-                row['TARGET'] = 4;
-            } else if (summary.includes('MAJOR')) {
-                row['SEVERITY'] = 'MAJOR';
-                row['TARGET'] = 8;
-            } else if (summary.includes('MINOR')) {
-                row['SEVERITY'] = 'MINOR';
-                row['TARGET'] = 16;
-            } else {
-                row['SEVERITY'] = 'none';
-                row['TARGET'] = 24;
-            }
+
+            row['SEVERITY'] = 
+            summary.includes('PREMIUM')?summary.includes('PREVENTIVE')? 
+            'PREMIUM PREVENTIVE':'PREMIUM':
+            summary.includes('CRITICAL')?'CRITICAL':
+            summary.includes('MAJOR')?'MAJOR':
+            summary.includes('MINOR')?'MINOR':'none';
+            
+            row['TARGET'] = 
+            summary.includes('PREMIUM')? summary.includes('PREVENTIVE')?24:2:
+            summary.includes('CRITICAL')?4:
+            summary.includes('MAJOR')?8:
+            summary.includes('MINOR')?16:24;
         });
         //Perhitungan untuk kolom durasi
         function timeToDecimal(timeStr){
@@ -115,5 +106,6 @@ function ClickBox(clickedBox){
     if (table === null)console.warn("there is no data");
     renderTableFromCSV(table, 'tableData', ['SEVERITY', 'INCIDENT', 'BRANCH', 'WORKZONE','TARGET','DURASI','SUMMARY','TOTAL TIKET']); 
 }
+
 
 
