@@ -39,7 +39,8 @@ document.getElementById('csvInput').addEventListener('change', function(event) {
             'PREMIUM PREVENTIVE':'PREMIUM':
             summary.includes('CRITICAL')?'CRITICAL':
             summary.includes('MAJOR')?'MAJOR':
-            summary.includes('MINOR')?'MINOR':'none';
+            summary.includes('MINOR')?'MINOR':
+            summary.includes('LOW')?'LOW':'none';
             
             row['TARGET'] = 
             summary.includes('PREMIUM')? summary.includes('PREVENTIVE')?24:2:
@@ -68,7 +69,7 @@ document.getElementById('csvInput').addEventListener('change', function(event) {
 
             // filter untuk menampilkan defult table 
             table = SeverityFilter(table,
-                ["PREMIUM PREVENTIVE","PREMIUM", "CRITICAL", "MAJOR"]
+                ["PREMIUM PREVENTIVE","PREMIUM", "CRITICAL", "MAJOR","LOW"]
             );
             // render tabel untuk ditampilkan pada web
         renderTableFromCSV(table, 'tableData', ['SEVERITY', 'INCIDENT','AREA', 'BRANCH', 'WORKZONE','TARGET','DURASI', 'SUMMARY','TOTAL TIKET']); 
