@@ -58,7 +58,7 @@ function SeverityFilter(csvData, SeverityType = []) {
     // Condition 1: Is the severity in our selected list?
     const isMatchingSeverity = SeverityType.includes(row.SEVERITY);
     
-    // Condition 2: Is the duration more than 5?
+    // Condition 2: Is the duration more than 20?
 	let isLongDuration;
 	if(row.SEVERITY == 'LOW') isLongDuration = Number(row.DURASI) > 20;
 	else isLongDuration = Number(row.DURASI) > 0;
