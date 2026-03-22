@@ -49,15 +49,24 @@ function filterByMultipleColumns(csvData, conditions) {
 }
 
 
-// now filter by severity if needed
-function SeverityFilter(csvData, SeverityType = []){
-	let table = [];
-	console.log(SeverityType);// memastikan severity type yang dimasukkan
-	if (SeverityType.length===0) return csvData;
-	for (let index of SeverityType){
-		table = table.concat(filterByColumn(csvData, 'SEVERITY', index, 'exact'));
-	}
-	return table;
+
+function SeverityFilter(csvData, SeverityType = []) {
+  // If no filters are provided, return the full dataset
+  if (SeverityType.length === 0) return csvData;
+
+  return csvData.filter(row => {
+    // Condition 1: Is the severity in our selected list?
+    const isMatchingSeverity = SeverityType.includes(row.SEVERITY);
+    
+    // Condition 2: Is the duration more than 5?
+	let isLongDuration;
+	if(row.SEVERITY == 'LOW') isLongDuration = Number(row.DURASI) > 20;
+	else isLongDuration = Number(row.DURASI) > 0;
+
+    // Only return true if BOTH conditions are met
+    return isMatchingSeverity && isLongDuration;
+  });
+}
 
 	
 }
