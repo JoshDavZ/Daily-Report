@@ -67,7 +67,3 @@ function SeverityFilter(csvData, SeverityType = []) {
     return isMatchingSeverity && isLongDuration;
   });
 }
-
-	
-}
-
