@@ -1,3 +1,4 @@
+let rows = [];
 // Mengendalikan data input
 document.getElementById('csvInput').addEventListener('change', function(event) {
     // Membuka data CSV
@@ -9,9 +10,10 @@ document.getElementById('csvInput').addEventListener('change', function(event) {
         // Mengolah data agar data dapat digunakan
         const csvContent = e.target.result;
         let data = CSVstring_to_Array(csvContent);
+        // data = filterByColumnByColumn(data, 'STO DATABASE', null, 'exclude');
 
         // mapping branch
-        const branch = filterByColumn(data, 'STO DATABASE', null, 'exclude');
+        let branch = filterByColumn(data, 'STO DATABASE', null, 'exclude');
         data.forEach(row => {
             const workzone = (row['WORKZONE']||'').toString();
             branch.forEach(index => {
@@ -47,6 +49,30 @@ document.getElementById('csvInput').addEventListener('change', function(event) {
             summary.includes('CRITICAL')?4:
             summary.includes('MAJOR')?8:
             summary.includes('MINOR')?16:24;
+
+            // https://medium.com/@hxu0407/9-smart-ways-to-replace-if-else-in-javascript-28f82ad6dcb9
+            // if (summary.includes('PREMIUM')) {
+            //     if (summary.includes('PREVENTIVE')) {
+            //         row['SEVERITY'] = 'PREMIUM PREVENTIVE';
+            //         row['TARGET'] = 24;
+            //     }
+            //     else {
+            //         row['SEVERITY'] = 'PREMIUM';
+            //         row['TARGET'] = 2;
+            //     }
+            // } else if (summary.includes('CRITICAL')) {
+            //     row['SEVERITY'] = 'CRITICAL';
+            //     row['TARGET'] = 4;
+            // } else if (summary.includes('MAJOR')) {
+            //     row['SEVERITY'] = 'MAJOR';
+            //     row['TARGET'] = 8;
+            // } else if (summary.includes('MINOR')) {
+            //     row['SEVERITY'] = 'MINOR';
+            //     row['TARGET'] = 16;
+            // } else {
+            //     row['SEVERITY'] = 'none';
+            //     row['TARGET'] = 24;
+            // }
         });
         //Perhitungan untuk kolom durasi
         function timeToDecimal(timeStr){
@@ -55,7 +81,7 @@ document.getElementById('csvInput').addEventListener('change', function(event) {
             else if(timeStr.includes('.')){ [hours, minutes, seconds] = timeStr.split('.').map(Number);}
             else if(timeStr.includes('/')){ [hours, minutes, seconds] = timeStr.split('/').map(Number);}
             else if(timeStr.includes('-')){ [hours, minutes, seconds] = timeStr.split('-').map(Number);}
-            else{ console.warn("WADAW Code ga jalan"); return;} 
+            else{ console.warn("WADAW, pemisah waktunya harus antara :|.|/|- "); return;} 
             return hours + (minutes/60) + (seconds/3600);}
             // menentukan "DURASI" berdasarkan "TTR CUSTOMER"
             rows.forEach(row=>{
@@ -95,18 +121,14 @@ document.getElementById('csvInput').addEventListener('change', function(event) {
         document.getElementById('PremiumPrevValue').innerText = prevCount;
         document.getElementById('CriticalValue').innerText = CritCount;
         document.getElementById('MajorValue').innerText = MajCount;
-        
-        
+            
         console.log("Hasil Hitung:", { preCount, CritCount, MajCount });
     };
     reader.readAsText(file);
 }); 
 function ClickBox(clickedBox){
     console.log("Click masuk dr ", clickedBox);
-    let table = filterByColumn(rows, 'SEVERITY',clickedBox);
+    let table = filterByColumn(rows, 'SEVERITY',clickedBox,'exact');
     if (table === null)console.warn("there is no data");
     renderTableFromCSV(table, 'tableData', ['SEVERITY', 'INCIDENT', 'BRANCH', 'WORKZONE','TARGET','DURASI','SUMMARY','TOTAL TIKET']); 
 }
-
-
-
