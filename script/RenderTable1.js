@@ -98,7 +98,7 @@ function renderTableFromCSV(csvData, tableContainerId, columns = null) {
 			}
 			else if(header === 'SUMMARY'){
 				td.style.wordBreak = 'break-all';
-				td.style.maxWidth = '330px';
+				td.style.maxWidth = '10px';
 			}
 			row.appendChild(td);
 		});
