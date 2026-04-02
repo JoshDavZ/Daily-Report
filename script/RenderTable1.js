@@ -82,7 +82,7 @@ function renderTableFromCSV(csvData, tableContainerId, columns = null) {
 			td.textContent = text;
 			td.style.alignItems = 'center';
 			// jika data berisi angka maka masuk ke dalam if
-			console.log(rowData['SUMMARY'])
+			console.log('test1',rowData['SUMMARY']);
 			if(!isNaN(rowData[header])){
 				td.style.textAlign = 'center';
 				td.style.padding = '0px 0px';
