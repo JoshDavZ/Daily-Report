@@ -1,7 +1,7 @@
 /*
  * render.js - Renders CSV data from data.js into HTML
  */
-console.log('test')
+console.log('test renderTable');
 function renderTableFromCSV(csvData, tableContainerId, columns = null) {
 	const container = document.getElementById(tableContainerId);
 	console.log(csvData); // memastikan data yang akan di render benar
