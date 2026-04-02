@@ -1,4 +1,4 @@
-let rows = [];
+let rowss = [];
 // Mengendalikan data input
 document.getElementById('csvInput').addEventListener('change', function(event) {
     // Membuka data CSV
@@ -26,13 +26,13 @@ document.getElementById('csvInput').addEventListener('change', function(event) {
         })
 
         // menghapus baris yang tidak terpakai
-        rows = filterByColumn(data, 'SUMMARY', 'TSEL_METRO', 'include');
-        if (!rows||rows.lenght === 0){
+        rowss = filterByColumn(data, 'SUMMARY', 'TSEL_METRO', 'include');
+        if (!rowss||rowss.lenght === 0){
             console.warn("There is no data");
-        }rows
+        }rowss
         
         // menentukan "SEVERITY","TOTAL TIKET", dan "TARGET" berdasarkan isi "SUMMARY"
-        rows.forEach(row => {
+        rowss.forEach(row => {
             const summary = (row['SUMMARY'] || '').toString();
             row['TOTAL TIKET'] = 1;
 
@@ -51,28 +51,6 @@ document.getElementById('csvInput').addEventListener('change', function(event) {
             summary.includes('MINOR')?16:24;
 
             // https://medium.com/@hxu0407/9-smart-ways-to-replace-if-else-in-javascript-28f82ad6dcb9
-            // if (summary.includes('PREMIUM')) {
-            //     if (summary.includes('PREVENTIVE')) {
-            //         row['SEVERITY'] = 'PREMIUM PREVENTIVE';
-            //         row['TARGET'] = 24;
-            //     }
-            //     else {
-            //         row['SEVERITY'] = 'PREMIUM';
-            //         row['TARGET'] = 2;
-            //     }
-            // } else if (summary.includes('CRITICAL')) {
-            //     row['SEVERITY'] = 'CRITICAL';
-            //     row['TARGET'] = 4;
-            // } else if (summary.includes('MAJOR')) {
-            //     row['SEVERITY'] = 'MAJOR';
-            //     row['TARGET'] = 8;
-            // } else if (summary.includes('MINOR')) {
-            //     row['SEVERITY'] = 'MINOR';
-            //     row['TARGET'] = 16;
-            // } else {
-            //     row['SEVERITY'] = 'none';
-            //     row['TARGET'] = 24;
-            // }
         });
         //Perhitungan untuk kolom durasi
         function timeToDecimal(timeStr){
@@ -83,21 +61,19 @@ document.getElementById('csvInput').addEventListener('change', function(event) {
             else if(timeStr.includes('-')){ [hours, minutes, seconds] = timeStr.split('-').map(Number);}
             else{ console.warn("WADAW, pemisah waktunya harus antara :|.|/|- "); return;} 
             return hours + (minutes/60) + (seconds/3600);}
-            // menentukan "DURASI" berdasarkan "TTR CUSTOMER"
-            rows.forEach(row=>{
-                const TTR = (row['TTR CUSTOMER']||'').toString();
-                row['DURASI']= Math.round(timeToDecimal(TTR) * 100) / 100;
-            });
-            
-            //data, reference, sortby, referenceby
-            let table = Sort(rows, branch, 'WORKZONE', 'STO');
-            
-            // filter untuk menampilkan defult table 
-            table = SeverityFilter(table,
-                ["PREMIUM PREVENTIVE","PREMIUM", "CRITICAL", "MAJOR","MINOR","LOW"]
-            );
-            table = Sort(table,["PREMIUM PREVENTIVE","PREMIUM", "CRITICAL", "MAJOR","MINOR","LOW"], 'SEVERITY');
-            // render tabel untuk ditampilkan pada web
+        // menentukan "DURASI" berdasarkan "TTR CUSTOMER"
+        rowss.forEach(row=>{
+            const TTR = (row['TTR CUSTOMER']||'').toString();
+            row['DURASI']= Math.round(timeToDecimal(TTR) * 100) / 100;
+        });
+        //data, reference, sortby, referenceby
+        let table = Sort(rowss, branch, 'WORKZONE', 'STO');
+        console.log('test',table);
+        
+        // filter untuk menampilkan defult table 
+        table = SeverityFilter(table,["PREMIUM PREVENTIVE","PREMIUM", "CRITICAL", "MAJOR","MINOR","LOW"]);
+        table = Sort(table,["PREMIUM PREVENTIVE","PREMIUM", "CRITICAL", "MAJOR","MINOR","LOW"], 'SEVERITY');
+        // render tabel untuk ditampilkan pada web
         renderTableFromCSV(table, 'tableData', ['SEVERITY', 'INCIDENT','AREA', 'BRANCH', 'WORKZONE','TARGET','DURASI', 'SUMMARY','TOTAL TIKET']); 
         console.log(table); // Parsed CSV as an array of objects
         
@@ -107,13 +83,18 @@ document.getElementById('csvInput').addEventListener('change', function(event) {
         let prevCount = 0; //Premium Preventive
         let CritCount = 0; //Critical
         let MajCount = 0; //Major
+        let MinCount = 0; //Minor
+        let LowCount = 0; //Low
 
-        for(let index of rows){
+        for(let index of rowss){
             const severity = (index['SEVERITY'] || '').toString();
-            if(severity === 'PREMIUM') preCount++; //Premium
-            else if(severity === 'PREMIUM PREVENTIVE')prevCount++; //Premium Preventive
-            else if(severity === 'CRITICAL')CritCount++; //Critical
-            else if(severity === 'MAJOR')MajCount++; //MAJOR
+            switch (severity) {
+                case 'PREMIUM': preCount++;break;//PREMIUM
+                case 'PREMIUM PREVENTIVE': prevCount++; break;//PREMIUM PREVENTIVE
+                case 'CRITICAL': CritCount++; break;//CRITICAL
+                case 'MAJOR': MajCount++; break;//MAJOR
+            }if(severity === 'MINOR'&&Number(index['DURASI']) > 12)MinCount++; //MINOR
+            else if(severity === 'LOW'&&Number(index['DURASI']) > 20)LowCount++; //LOW
             console.log(MajCount);
         }
         //menampilkan data yang sudah di olah
@@ -121,14 +102,17 @@ document.getElementById('csvInput').addEventListener('change', function(event) {
         document.getElementById('PremiumPrevValue').innerText = prevCount;
         document.getElementById('CriticalValue').innerText = CritCount;
         document.getElementById('MajorValue').innerText = MajCount;
+        document.getElementById('MinorValue').innerText = MinCount;
+        document.getElementById('LowValue').innerText = LowCount;
             
         console.log("Hasil Hitung:", { preCount, CritCount, MajCount });
     };
     reader.readAsText(file);
 }); 
+//Fungsi klik pada floating box yang berfungsi untuk filter berdasarkan SEVERITY yang dipilih
 function ClickBox(clickedBox){
     console.log("Click masuk dr ", clickedBox);
-    let table = filterByColumn(rows, 'SEVERITY',clickedBox,'exact');
-    if (table === null)console.warn("there is no data");
+    let table = filterByColumn(rows, 'SEVERITY',clickedBox,'exact'); //filter data berdasarkan severity yang dipilih
+    if (table === null)console.warn("there is no data"); // jika data yang di filter tidak/kosong
     renderTableFromCSV(table, 'tableData', ['SEVERITY', 'INCIDENT', 'BRANCH', 'WORKZONE','TARGET','DURASI','SUMMARY','TOTAL TIKET']); 
 }
