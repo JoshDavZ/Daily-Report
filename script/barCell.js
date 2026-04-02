@@ -18,8 +18,10 @@ function bars(val, target, dest) {
     var jam = Math.floor(val);
     var menit = Math.floor((((val*100)%100)*60)/100);
     console.log('data:'+val); 
-    console.log('hitung:'+jam+'.'+menit); 
-    value.textContent = jam +'.'+menit;
+    console.log('hitung:'+jam+'.'+menit);
+    if (menit < 10) menit = '0'+menit;
+    if (jam < 10) jam = '0'+jam;
+    value.textContent = jam +':'+menit;
 
     if(val>target){
         bar.style.background = '#f51212';
