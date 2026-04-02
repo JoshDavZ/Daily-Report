@@ -1,7 +1,6 @@
 /*
  * render.js - Renders CSV data from data.js into HTML
  */
-console.log('test renderTable');
 function renderTableFromCSV(csvData, tableContainerId, columns = null) {
 	const container = document.getElementById(tableContainerId);
 	console.log(csvData); // memastikan data yang akan di render benar
@@ -44,6 +43,8 @@ function renderTableFromCSV(csvData, tableContainerId, columns = null) {
 	const numHeader = document.createElement('div');
 	numHeader.className = 'cell';
 	numHeader.textContent = 'No.';
+	// numHeader.style.borderRight = '1px solid #9a9a9a';
+	numHeader.style.borderLeft = '1px solid #9a9a9a';
 	headerRow.appendChild(numHeader);
 
 	// Menambahkan cell untuk header
@@ -51,7 +52,12 @@ function renderTableFromCSV(csvData, tableContainerId, columns = null) {
 		const th = document.createElement('div');
 		th.className = 'cell';
 		th.textContent = header;
+		th.style.textAlign = 'center';
+		// th.style.borderRight = '1px solid #9a9a9a';
+		th.style.borderLeft = '1px solid #9a9a9a';
+		// th.style.maxWidth = '2px';
 		headerRow.appendChild(th);
+
 	});
 	// Memasukkan semua data pada baris pertama
 	table.appendChild(headerRow);
@@ -66,6 +72,8 @@ function renderTableFromCSV(csvData, tableContainerId, columns = null) {
 		numCell.className = 'cell';
 		numCell.setAttribute('data-title', 'No.');
 		numCell.style.textAlign = "center";
+		// numCell.style.borderRight = '1px solid #9a9a9a';
+		numCell.style.borderLeft = '1px solid #9a9a9a';
 		numCell.textContent = (index + 1).toString();
 		row.appendChild(numCell);
 
@@ -77,6 +85,7 @@ function renderTableFromCSV(csvData, tableContainerId, columns = null) {
 			const text = rowData[header] !== undefined && rowData[header] !== null ? rowData[header] : '';
 			td.textContent = text;
 			td.style.alignItems = 'center';
+			td.style.borderLeft = '1px solid #9a9a9a';
 			// jika data berisi angka maka masuk ke dalam if
 			if(!isNaN(rowData[header])){
 				td.style.textAlign = 'center';
@@ -94,13 +103,15 @@ function renderTableFromCSV(csvData, tableContainerId, columns = null) {
 			}else if(header === 'AREA'){
 				td.style.minWidth = '50px';
 				console.log(header);
-			}else if(header === 'WORKZONE'){
+			}else if(header === 'WORKZONE'||header === 'SEVERITY'){
 				td.style.textAlign = 'center';
 			}
 			else if(header === 'SUMMARY'){
 				td.style.wordBreak = 'break-all';
-				td.style.maxWidth = '300px';
-				td.style.minWidth = '200px';
+				td.style.maxWidth = '380px';
+				td.style.minWidth = '350px';
+			}else{
+				console.log(header);
 			}
 			row.appendChild(td);
 		});
@@ -112,11 +123,15 @@ function renderTableFromCSV(csvData, tableContainerId, columns = null) {
 	const totalRow = document.createElement('div');
 	totalRow.className = 'row header';
 	
+	const numCell1 = document.createElement('div');
 	const numCell = document.createElement('div');
 	numCell.className = 'cell';
 	numCell.setAttribute('data-title', 'No.');
 	numCell.textContent = 'GrandTotal';
 	numCell.fontWeight = '24px';
+	numCell1.style.borderLeft = '1px solid #9a9a9a';
+
+	totalRow.appendChild(numCell1);
 	totalRow.appendChild(numCell);
 
 	// Perhitungan total tiket
@@ -142,9 +157,12 @@ function renderTableFromCSV(csvData, tableContainerId, columns = null) {
 			td.style.textAlign = 'center';
 			td.style.width = '10px';
 			td.fontWeight = '24px';
+			td.style.borderLeft = '1px solid #9a9a9a';
+			// td.style.borderRight = '1px solid #9a9a9a';
 			totalRow.appendChild(td);
 		}
-		totalRow.appendChild(td);
+		else if(header === 'DURASI'){}
+		else totalRow.appendChild(td);
 	});
 	table.appendChild(totalRow);
 	// Append table to container
