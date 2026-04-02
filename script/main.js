@@ -102,8 +102,8 @@ document.getElementById('csvInput').addEventListener('change', function(event) {
         document.getElementById('PremiumPrevValue').innerText = prevCount;
         document.getElementById('CriticalValue').innerText = CritCount;
         document.getElementById('MajorValue').innerText = MajCount;
-        document.getElementById('MinorValue').innerText = MinCount;
-        document.getElementById('LowValue').innerText = LowCount;
+        // document.getElementById('MinorValue').innerText = MinCount;
+        // document.getElementById('LowValue').innerText = LowCount;
             
         console.log("Hasil Hitung:", { preCount, CritCount, MajCount });
     };
