@@ -88,18 +88,15 @@ document.getElementById('csvInput').addEventListener('change', function(event) {
                 const TTR = (row['TTR CUSTOMER']||'').toString();
                 row['DURASI']= Math.round(timeToDecimal(TTR) * 100) / 100;
             });
-            console.log(rows);
             
             //data, reference, sortby, referenceby
             let table = Sort(rows, branch, 'WORKZONE', 'STO');
-            console.log('test',table);
             
             // filter untuk menampilkan defult table 
             table = SeverityFilter(table,
                 ["PREMIUM PREVENTIVE","PREMIUM", "CRITICAL", "MAJOR","MINOR","LOW"]
             );
             table = Sort(table,["PREMIUM PREVENTIVE","PREMIUM", "CRITICAL", "MAJOR","MINOR","LOW"], 'SEVERITY');
-            console.log('test2',table);
             // render tabel untuk ditampilkan pada web
         renderTableFromCSV(table, 'tableData', ['SEVERITY', 'INCIDENT','AREA', 'BRANCH', 'WORKZONE','TARGET','DURASI', 'SUMMARY','TOTAL TIKET']); 
         console.log(table); // Parsed CSV as an array of objects
