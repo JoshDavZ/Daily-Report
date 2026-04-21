@@ -1,0 +1,46 @@
+:root {
+  --primary: #ff5151;
+  --accent: #ff6d6d;
+  --yellow: #f8f88b;
+  --radius: 10px;
+}
+
+.progressBar {
+  /* padding-top: 2px; */
+  height: 38px;
+  background-color: var(--yellow);
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  /* enable flexbox */
+  align-items: center;
+  /* vertical center */
+  justify-content: center;
+  /* horizontal center */
+}
+
+.fill {
+  height: 100%;
+  border-radius: var(--radius);
+  width: 0%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transition: width 1.5s cubic-bezier(0.22, 0.68, 0, 1.71);
+  position: absolute;
+  /* fill sits behind text */
+  top: 0;
+  left: 0;
+}
+
+.progressValue {
+  font-weight: 700;
+  color: black;
+  /* strong contrast */
+  /* position: absolute;    remove absolute positioning */
+  top: 8px;
+  left: 10px;
+  z-index: 1;
+  /* ensures text is above fill */
+  pointer-events: none;
+  /* text won't block clicks */
+}
